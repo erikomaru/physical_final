@@ -1,0 +1,16 @@
+# Recorded demonstrations, converted datasets, and model checkpoints
+runtime_data/
+dataset/
+checkpoints/
+
+# Local Python/build artifacts
+__pycache__/
+*.py[cod]
+build/
+install/
+log/
+.pixi/
+
+# Local editor / OS files
+.DS_Store
+.vscode/

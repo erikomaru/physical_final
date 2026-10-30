@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <world name="surry_hills_osm_simple">
+    <gravity>0 0 -9.81</gravity>
+    <physics name="fast" type="ignored"><max_step_size>0.004</max_step_size><real_time_factor>1</real_time_factor></physics>
+    <plugin filename="ignition-gazebo-physics-system" name="ignition::gazebo::systems::Physics"/>
+    <plugin filename="ignition-gazebo-user-commands-system" name="ignition::gazebo::systems::UserCommands"/>
+    <plugin filename="ignition-gazebo-scene-broadcaster-system" name="ignition::gazebo::systems::SceneBroadcaster"/>
+    <scene><ambient>0.8 0.8 0.8 1</ambient><background>0.7 0.8 0.9 1</background></scene>
+    <light name="sun" type="directional"><pose>0 0 30 0 0 0</pose><direction>-0.4 0.2 -1</direction><diffuse>0.9 0.9 0.9 1</diffuse></light>
+
+    <!-- Local tangent-plane coordinates projected from OSM; 1 m OSM = 0.12 m here.
+         Origin: Single O node 594438630 (-33.8811804, 151.2096810). -->
+    <model name="ground"><static>true</static><pose>0 -1.5 -0.1 0 0 0</pose><link name="l"><collision name="c"><geometry><box><size>32 25 0.2</size></box></geometry></collision><visual name="v"><geometry><box><size>32 25 0.2</size></box></geometry><material><diffuse>0.82 0.82 0.78 1</diffuse></material></visual></link></model>
+    <!-- OSM Reservoir Street and Elizabeth Street, simplified to drivable strips. -->
+    <model name="road_reservoir"><static>true</static><pose>0 -1.12 0.006 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>29 1.45 0.02</size></box></geometry><material><diffuse>0.25 0.27 0.29 1</diffuse></material></visual></link></model>
+    <model name="road_elizabeth"><static>true</static><pose>-10.45 -4.8 0.007 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>1.35 8.8 0.02</size></box></geometry><material><diffuse>0.25 0.27 0.29 1</diffuse></material></visual></link></model>
+    <model name="road_albion"><static>true</static><pose>-8.9 -8.45 0.008 0 0 -0.36</pose><link name="l"><visual name="v"><geometry><box><size>5.3 1.35 0.02</size></box></geometry><material><diffuse>0.25 0.27 0.29 1</diffuse></material></visual></link></model>
+
+    <!-- Six cuboids at OSM building locations; sizes are simplified bounding boxes. -->
+    <!-- way 540509391 The Excelsior, projected centre (-7.42,-4.91) -->
+    <model name="building_1"><static>true</static><pose>-7.42 -4.91 2.88 0 0 0</pose><link name="l"><collision name="c"><geometry><box><size>2.81 3.90 5.76</size></box></geometry></collision><visual name="v"><geometry><box><size>2.81 3.90 5.76</size></box></geometry><material><diffuse>0.68 0.63 0.57 1</diffuse></material></visual></link></model>
+    <!-- way 540509392 Rydges City Central, projected centre (-1.10,-9.36) -->
+    <model name="building_2"><static>true</static><pose>-1.10 -9.36 1.80 0 0 0</pose><link name="l"><collision name="c"><geometry><box><size>6.56 4.91 3.60</size></box></geometry></collision><visual name="v"><geometry><box><size>6.56 4.91 3.60</size></box></geometry><material><diffuse>0.72 0.68 0.62 1</diffuse></material></visual></link></model>
+    <!-- way 540509393 Silkwood Apartment, projected centre (-2.88,-3.69) -->
+    <model name="building_3"><static>true</static><pose>-2.88 -3.69 1.80 0 0 0</pose><link name="l"><collision name="c"><geometry><box><size>3.22 2.60 3.60</size></box></geometry></collision><visual name="v"><geometry><box><size>3.22 2.60 3.60</size></box></geometry><material><diffuse>0.63 0.67 0.69 1</diffuse></material></visual></link></model>
+    <!-- way 540509394 Teachers Federation House, projected centre (2.34,-5.10) -->
+    <model name="building_4"><static>true</static><pose>2.34 -5.10 1.26 0 0 0</pose><link name="l"><collision name="c"><geometry><box><size>2.39 3.89 2.52</size></box></geometry></collision><visual name="v"><geometry><box><size>2.39 3.89 2.52</size></box></geometry><material><diffuse>0.63 0.67 0.69 1</diffuse></material></visual></link></model>
+    <!-- way 540509395 Elizabeth House, projected centre (-6.50,4.56) -->
+    <model name="building_5"><static>true</static><pose>-6.50 4.56 1.62 0 0 0</pose><link name="l"><collision name="c"><geometry><box><size>2.17 1.58 3.24</size></box></geometry></collision><visual name="v"><geometry><box><size>2.17 1.58 3.24</size></box></geometry><material><diffuse>0.72 0.68 0.62 1</diffuse></material></visual></link></model>
+    <!-- way 556198218 contains the Single O POI; centre (-0.24,1.82) -->
+    <model name="building_6_single_o"><static>true</static><pose>-0.24 1.82 1.08 0 0 0</pose><link name="l"><collision name="c"><geometry><box><size>1.00 2.70 2.16</size></box></geometry></collision><visual name="v"><geometry><box><size>1.00 2.70 2.16</size></box></geometry><material><diffuse>0.83 0.47 0.20 1</diffuse></material></visual></link></model>
+
+    <!-- Single O node is inside this building; marker is just outside its Reservoir St frontage. -->
+    <model name="start_marker"><static>true</static><pose>0 -0.20 0.012 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>0.9 0.9 0.02</size></box></geometry><material><diffuse>0.1 0.8 0.2 1</diffuse></material></visual></link></model>
+    <!-- Hotel goal on Albion Street beside the Rydges OSM footprint (way 540509392). -->
+    <model name="goal_marker"><static>true</static><pose>-5.8 -9.5 0.013 0 0 0</pose><link name="l"><visual name="v"><geometry><box><size>0.9 0.9 0.02</size></box></geometry><material><diffuse>0.9 0.15 0.1 1</diffuse></material></visual></link></model>
+
+    <!-- Stable four-wheel differential rover; footprint enlarged for visibility. -->
+    <model name="rover" canonical_link="base_link"><pose>0 -0.20 0.33 0 0 0</pose>
+      <link name="base_link"><inertial><mass>8</mass><inertia><ixx>0.75</ixx><iyy>1.10</iyy><izz>1.50</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial><collision name="base_collision"><geometry><box><size>1.30 0.88 0.30</size></box></geometry></collision><visual name="base_visual"><geometry><box><size>1.30 0.88 0.30</size></box></geometry><material><diffuse>0.15 0.35 0.9 1</diffuse></material></visual></link>
+      <link name="coffee_cup"><pose>0 0 0.30 0 0 0</pose><inertial><mass>0.25</mass><inertia><ixx>0.002</ixx><iyy>0.002</iyy><izz>0.003</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial><collision name="cup_collision"><geometry><cylinder><radius>0.16</radius><length>0.28</length></cylinder></geometry></collision><visual name="cup"><geometry><cylinder><radius>0.16</radius><length>0.28</length></cylinder></geometry><material><diffuse>0.72 0.43 0.22 1</diffuse></material></visual><visual name="coffee"><pose>0 0 0.135 0 0 0</pose><geometry><cylinder><radius>0.145</radius><length>0.01</length></cylinder></geometry><material><diffuse>0.12 0.045 0.015 1</diffuse></material></visual><visual name="handle_top"><pose>0.19 0 0.07 0 0 0</pose><geometry><box><size>0.14 0.06 0.05</size></box></geometry><material><diffuse>0.82 0.70 0.52 1</diffuse></material></visual><visual name="handle_side"><pose>0.25 0 0 0 0 0</pose><geometry><box><size>0.05 0.06 0.14</size></box></geometry><material><diffuse>0.82 0.70 0.52 1</diffuse></material></visual><visual name="handle_bottom"><pose>0.19 0 -0.07 0 0 0</pose><geometry><box><size>0.14 0.06 0.05</size></box></geometry><material><diffuse>0.82 0.70 0.52 1</diffuse></material></visual></link>
+      <link name="front_left_wheel"><pose>0.42 0.49 -0.11 0 0 0</pose><inertial><mass>0.45</mass><inertia><ixx>0.012</ixx><iyy>0.012</iyy><izz>0.012</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial><collision name="c"><pose>0 0 0 1.5708 0 0</pose><geometry><cylinder><radius>0.22</radius><length>0.14</length></cylinder></geometry></collision><visual name="v"><pose>0 0 0 1.5708 0 0</pose><geometry><cylinder><radius>0.22</radius><length>0.14</length></cylinder></geometry><material><diffuse>0.08 0.08 0.08 1</diffuse></material></visual></link>
+      <link name="rear_left_wheel"><pose>-0.42 0.49 -0.11 0 0 0</pose><inertial><mass>0.45</mass><inertia><ixx>0.012</ixx><iyy>0.012</iyy><izz>0.012</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial><collision name="c"><pose>0 0 0 1.5708 0 0</pose><geometry><cylinder><radius>0.22</radius><length>0.14</length></cylinder></geometry></collision><visual name="v"><pose>0 0 0 1.5708 0 0</pose><geometry><cylinder><radius>0.22</radius><length>0.14</length></cylinder></geometry><material><diffuse>0.08 0.08 0.08 1</diffuse></material></visual></link>
+      <link name="front_right_wheel"><pose>0.42 -0.49 -0.11 0 0 0</pose><inertial><mass>0.45</mass><inertia><ixx>0.012</ixx><iyy>0.012</iyy><izz>0.012</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial><collision name="c"><pose>0 0 0 1.5708 0 0</pose><geometry><cylinder><radius>0.22</radius><length>0.14</length></cylinder></geometry></collision><visual name="v"><pose>0 0 0 1.5708 0 0</pose><geometry><cylinder><radius>0.22</radius><length>0.14</length></cylinder></geometry><material><diffuse>0.08 0.08 0.08 1</diffuse></material></visual></link>
+      <link name="rear_right_wheel"><pose>-0.42 -0.49 -0.11 0 0 0</pose><inertial><mass>0.45</mass><inertia><ixx>0.012</ixx><iyy>0.012</iyy><izz>0.012</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial><collision name="c"><pose>0 0 0 1.5708 0 0</pose><geometry><cylinder><radius>0.22</radius><length>0.14</length></cylinder></geometry></collision><visual name="v"><pose>0 0 0 1.5708 0 0</pose><geometry><cylinder><radius>0.22</radius><length>0.14</length></cylinder></geometry><material><diffuse>0.08 0.08 0.08 1</diffuse></material></visual></link>
+      <joint name="front_left_joint" type="revolute"><parent>base_link</parent><child>front_left_wheel</child><axis><xyz>0 1 0</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis></joint>
+      <joint name="coffee_cup_fixed_joint" type="fixed"><parent>base_link</parent><child>coffee_cup</child></joint>
+      <joint name="rear_left_joint" type="revolute"><parent>base_link</parent><child>rear_left_wheel</child><axis><xyz>0 1 0</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis></joint>
+      <joint name="front_right_joint" type="revolute"><parent>base_link</parent><child>front_right_wheel</child><axis><xyz>0 1 0</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis></joint>
+      <joint name="rear_right_joint" type="revolute"><parent>base_link</parent><child>rear_right_wheel</child><axis><xyz>0 1 0</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis></joint>
+      <plugin filename="ignition-gazebo-diff-drive-system" name="ignition::gazebo::systems::DiffDrive"><left_joint>front_left_joint</left_joint><left_joint>rear_left_joint</left_joint><right_joint>front_right_joint</right_joint><right_joint>rear_right_joint</right_joint><wheel_separation>0.98</wheel_separation><wheel_radius>0.22</wheel_radius><topic>/model/rover/cmd_vel</topic><odom_topic>/model/rover/odometry</odom_topic><odom_publish_frequency>20</odom_publish_frequency><max_linear_velocity>1.2</max_linear_velocity><max_angular_velocity>1.5</max_angular_velocity></plugin>
+    </model>
+  </world>
+</sdf>
